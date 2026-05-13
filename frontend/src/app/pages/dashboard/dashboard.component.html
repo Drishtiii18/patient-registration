@@ -1,0 +1,121 @@
+<div class="dashboard">
+
+  @if (loading()) {
+    <app-spinner />
+  }
+
+  <div class="header">
+    <div>
+      <h1>Patient Dashboard</h1>
+      <p>Manage patient registration records</p>
+    </div>
+
+    <button
+      pButton
+      label="+ Add Patient"
+      (click)="goToAddPatient()"
+    ></button>
+  </div>
+
+  @if (error()) {
+    <p-message
+      severity="error"
+      [text]="error()"
+    ></p-message>
+  }
+
+  <div class="cards">
+    <p-card header="Total Patients">
+      <h2>{{ stats()?.total ?? 0 }}</h2>
+    </p-card>
+
+    <p-card header="Active">
+      <h2>{{ stats()?.active ?? 0 }}</h2>
+    </p-card>
+
+    <p-card header="Pending">
+      <h2>{{ stats()?.pending ?? 0 }}</h2>
+    </p-card>
+
+    <p-card header="Inactive">
+      <h2>{{ stats()?.inactive ?? 0 }}</h2>
+    </p-card>
+  </div>
+
+  <div class="chart-card">
+    <p-card header="Patient Status Breakdown">
+      <p-chart
+        type="pie"
+        [data]="chartData()"
+      ></p-chart>
+    </p-card>
+  </div>
+
+  <p-card header="Patient Records">
+    <div class="filters">
+      <input
+        pInputText
+        type="text"
+        placeholder="Search by name or email"
+        [ngModel]="searchText()"
+        (ngModelChange)="searchText.set($event)"
+        (keyup.enter)="onSearch()"
+      />
+
+      <button
+        pButton
+        label="Search"
+        (click)="onSearch()"
+      ></button>
+
+      <p-select
+      [options]="statusOptions"
+      [ngModel]="selectedStatus()"
+      (ngModelChange)="selectedStatus.set($event); onStatusChange()"
+      placeholder="Filter by status"
+      optionLabel="label"
+      optionValue="value"
+></p-select>
+    </div>
+
+    <p-table
+      [value]="patients()"
+      [paginator]="true"
+      [rows]="pageSize()"
+      [totalRecords]="totalRecords()"
+      [lazy]="true"
+      [rowsPerPageOptions]="[5, 10, 25]"
+      (onPage)="onPageChange($event)"
+    >
+      <ng-template pTemplate="header">
+        <tr>
+          <th>Full Name</th>
+          <th>Email</th>
+          <th>Status</th>
+          <th>Registered Date</th>
+          <th>Actions</th>
+        </tr>
+      </ng-template>
+
+      <ng-template pTemplate="body" let-patient>
+        <tr>
+          <td>{{ patient.firstName }} {{ patient.lastName }}</td>
+          <td>{{ patient.email }}</td>
+          <td>
+            <app-status-badge [status]="patient.status" />
+          </td>
+          <td>{{ patient.registeredDate | date:'mediumDate' }}</td>
+          <td>
+            <button
+              pButton
+              label="View"
+              size="small"
+              (click)="goToPatientDetail(patient._id)"
+            ></button>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </p-card>
+
+</div>
