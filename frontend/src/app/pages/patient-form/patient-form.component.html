@@ -1,2 +1,95 @@
-<h1>Add Patient</h1>
-<p>Patient form page works.</p>
+<div class="form-page">
+  <p-card header="Add New Patient">
+
+    @if (error()) {
+      <p-message
+        severity="error"
+        [text]="error()"
+      ></p-message>
+    }
+
+    <form
+      [formGroup]="patientForm"
+      (ngSubmit)="onSubmit()"
+      class="patient-form"
+    >
+      <div class="field">
+        <label>First Name</label>
+        <input
+          pInputText
+          type="text"
+          formControlName="firstName"
+        />
+        @if (firstNameInvalid) {
+          <small class="error">First name is required.</small>
+        }
+      </div>
+
+      <div class="field">
+        <label>Last Name</label>
+        <input
+          pInputText
+          type="text"
+          formControlName="lastName"
+        />
+        @if (lastNameInvalid) {
+          <small class="error">Last name is required.</small>
+        }
+      </div>
+
+      <div class="field">
+        <label>Email</label>
+        <input
+          pInputText
+          type="email"
+          formControlName="email"
+        />
+        @if (emailInvalid) {
+          <small class="error">Valid email is required.</small>
+        }
+      </div>
+
+      <div class="field">
+        <label>Date of Birth</label>
+        <p-datepicker
+          formControlName="dateOfBirth"
+          [maxDate]="maxDate"
+          dateFormat="yy-mm-dd"
+          showIcon="true"
+        ></p-datepicker>
+        @if (dateOfBirthInvalid) {
+          <small class="error">Date of birth is required and cannot be in the future.</small>
+        }
+      </div>
+
+      <div class="field">
+        <label>Status</label>
+        <p-select
+          formControlName="status"
+          [options]="statusOptions"
+          optionLabel="label"
+          optionValue="value"
+          placeholder="Select status"
+        ></p-select>
+      </div>
+
+      <div class="actions">
+        <button
+          pButton
+          type="button"
+          label="Back"
+          severity="secondary"
+          (click)="goBack()"
+        ></button>
+
+        <button
+          pButton
+          type="submit"
+          [label]="loading() ? 'Saving...' : 'Add Patient'"
+          [disabled]="loading()"
+        ></button>
+      </div>
+    </form>
+
+  </p-card>
+</div>
