@@ -1,125 +1,872 @@
 @import "primeicons/primeicons.css";
 
-body {
-  margin: 0;
-  font-family: Arial, Helvetica, sans-serif;
-  background-color: #f5f5f5;
+/* =========================
+   Global Theme Variables
+========================= */
+
+:root {
+  --page-bg: #f5f8fb;
+  --surface: #ffffff;
+  --surface-soft: #f8fafc;
+  --surface-accent: #ecfdf5;
+
+  --primary: #0f766e;
+  --primary-hover: #115e59;
+  --primary-light: #ccfbf1;
+
+  --text-main: #172033;
+  --text-muted: #667085;
+  --text-soft: #94a3b8;
+
+  --border: #d9e2ec;
+  --border-light: #e8eef5;
+
+  --success-bg: #dcfce7;
+  --success-text: #166534;
+
+  --pending-bg: #fef3c7;
+  --pending-text: #92400e;
+
+  --inactive-bg: #fee2e2;
+  --inactive-text: #991b1b;
+
+  --danger: #b42318;
+
+  --shadow-sm: 0 0.25em 0.75em rgba(15, 23, 42, 0.05);
+  --shadow-md: 0 0.75em 2em rgba(15, 23, 42, 0.08);
+
+  --radius-sm: 0.5em;
+  --radius-md: 0.85em;
+  --radius-lg: 1.25em;
 }
 
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 100%;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: Arial, Helvetica, sans-serif;
+  background:
+    radial-gradient(circle at top left, rgba(15, 118, 110, 0.08), transparent 28em),
+    linear-gradient(180deg, #f8fbff 0%, var(--page-bg) 100%);
+  color: var(--text-main);
+}
+
+/* =========================
+   PrimeNG Global Overrides
+   Force Light Theme
+========================= */
+
+.p-card,
+.p-card-body,
+.p-card-content,
+.p-card-title,
+.p-card-header {
+  background: var(--surface) !important;
+  color: var(--text-main) !important;
+}
+
+.p-card {
+  border: 0.06em solid var(--border-light) !important;
+  border-radius: var(--radius-lg) !important;
+  box-shadow: var(--shadow-md) !important;
+  overflow: hidden;
+}
+
+.p-card-body {
+  padding: 1.3em !important;
+}
+
+.p-card-title {
+  font-size: 1.05em !important;
+  font-weight: 700 !important;
+  margin-bottom: 1em !important;
+}
+
+.p-card-content {
+  padding: 0 !important;
+}
+
+/* Inputs, selects, datepicker */
+.p-inputtext,
+.p-select,
+.p-datepicker input,
+input[pInputText] {
+  width: 100%;
+  background: #ffffff !important;
+  color: var(--text-main) !important;
+  border: 0.06em solid #cbd5e1 !important;
+  border-radius: var(--radius-sm) !important;
+  min-height: 2.6em;
+}
+
+.p-inputtext,
+input[pInputText] {
+  padding: 0.65em 0.8em !important;
+}
+
+.p-inputtext::placeholder,
+input[pInputText]::placeholder {
+  color: var(--text-soft) !important;
+}
+
+.p-inputtext:enabled:focus,
+input[pInputText]:focus,
+.p-select:not(.p-disabled).p-focus,
+.p-datepicker input:focus {
+  border-color: var(--primary) !important;
+  box-shadow: 0 0 0 0.18em rgba(15, 118, 110, 0.13) !important;
+  outline: none !important;
+}
+
+.p-select-label {
+  color: var(--text-main) !important;
+  padding: 0.65em 0.8em !important;
+}
+
+.p-select-dropdown {
+  color: var(--text-muted) !important;
+}
+
+.p-select-overlay,
+.p-datepicker-panel {
+  background: #ffffff !important;
+  color: var(--text-main) !important;
+  border: 0.06em solid var(--border) !important;
+  box-shadow: var(--shadow-md) !important;
+}
+
+.p-select-option {
+  color: var(--text-main) !important;
+}
+
+.p-select-option:hover,
+.p-select-option.p-focus {
+  background: var(--primary-light) !important;
+  color: var(--text-main) !important;
+}
+
+/* Buttons */
+.p-button {
+  border-radius: var(--radius-sm) !important;
+  font-weight: 700 !important;
+  min-height: 2.4em;
+  transition: 0.2s ease;
+}
+
+.p-button:not(.p-button-secondary):not(.p-button-text):not(.p-button-outlined) {
+  background: var(--primary) !important;
+  border-color: var(--primary) !important;
+  color: #ffffff !important;
+}
+
+.p-button:not(.p-button-secondary):not(.p-button-text):not(.p-button-outlined):hover {
+  background: var(--primary-hover) !important;
+  border-color: var(--primary-hover) !important;
+}
+
+.p-button.p-button-secondary {
+  background: #f1f5f9 !important;
+  border-color: #e2e8f0 !important;
+  color: var(--text-main) !important;
+}
+
+.p-button.p-button-secondary:hover {
+  background: #e2e8f0 !important;
+  border-color: #cbd5e1 !important;
+}
+
+/* Messages */
+.p-message {
+  margin-bottom: 1em;
+  border-radius: var(--radius-md) !important;
+}
+
+/* =========================
+   Dashboard Page
+========================= */
+
 .dashboard {
-  padding: 24px;
+  min-height: 100vh;
+  padding: 2em;
 }
 
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 24px;
+  gap: 1em;
+  margin-bottom: 1.5em;
 }
+
+.header h1 {
+  margin: 0;
+  font-size: 2em;
+  font-weight: 800;
+  color: var(--text-main);
+  letter-spacing: -0.03em;
+}
+
+.header p {
+  margin: 0.35em 0 0;
+  color: var(--text-muted);
+  font-size: 1em;
+}
+
+/* =========================
+   Stats Cards
+========================= */
 
 .cards {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 16px;
-  margin-bottom: 24px;
+  gap: 1em;
+  margin-bottom: 1.5em;
 }
+
+.cards .p-card {
+  box-shadow: var(--shadow-sm) !important;
+}
+
+.cards .p-card-body {
+  padding: 1.2em !important;
+}
+
+.cards .p-card-title {
+  margin-bottom: 0.6em !important;
+  font-size: 0.9em !important;
+  color: var(--text-muted) !important;
+}
+
+.cards h2 {
+  margin: 0;
+  font-size: 2em;
+  color: var(--primary);
+  line-height: 1;
+}
+
+/* Add subtle top accent colors */
+.cards .p-card:nth-child(1) {
+  border-top: 0.3em solid #0f766e !important;
+}
+
+.cards .p-card:nth-child(2) {
+  border-top: 0.3em solid #16a34a !important;
+}
+
+.cards .p-card:nth-child(3) {
+  border-top: 0.3em solid #f59e0b !important;
+}
+
+.cards .p-card:nth-child(4) {
+  border-top: 0.3em solid #ef4444 !important;
+}
+
+/* =========================
+   Chart
+========================= */
 
 .chart-card {
-  max-width: 500px;
-  margin-bottom: 24px;
+  max-width: 34em;
+  margin-bottom: 1.5em;
 }
 
+.chart-card .p-card {
+  box-shadow: var(--shadow-sm) !important;
+}
+
+/* =========================
+   Patient Records Card
+========================= */
+
+.dashboard > .p-card:last-child {
+  margin-top: 1.5em;
+}
+
+.dashboard > .p-card:last-child .p-card-title {
+  font-size: 1.15em !important;
+  margin-bottom: 1em !important;
+}
+
+/* Filters */
 .filters {
   display: flex;
-  gap: 12px;
-  margin-bottom: 16px;
+  align-items: center;
+  gap: 0.75em;
   flex-wrap: wrap;
+  margin-bottom: 1.2em;
+  padding: 1em;
+  background: var(--surface-soft);
+  border: 0.06em solid var(--border-light);
+  border-radius: var(--radius-md);
 }
 
+.filters input {
+  max-width: 22em;
+}
+
+.filters .p-select {
+  min-width: 12em;
+}
+
+/* =========================
+   PrimeNG Table - Light Professional
+========================= */
+
+.p-datatable {
+  background: #ffffff !important;
+  color: var(--text-main) !important;
+  border: 0.06em solid var(--border-light);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.p-datatable-wrapper {
+  background: #ffffff !important;
+}
+
+.p-datatable table {
+  background: #ffffff !important;
+  border-collapse: collapse;
+}
+
+.p-datatable .p-datatable-thead > tr > th {
+  background: #eef6f8 !important;
+  color: var(--text-main) !important;
+  font-weight: 800 !important;
+  font-size: 0.88em;
+  padding: 1em !important;
+  border-color: var(--border-light) !important;
+}
+
+.p-datatable .p-datatable-tbody > tr {
+  background: #ffffff !important;
+  color: var(--text-main) !important;
+}
+
+.p-datatable .p-datatable-tbody > tr:nth-child(even) {
+  background: #f8fafc !important;
+}
+
+.p-datatable .p-datatable-tbody > tr:hover {
+  background: #ecfeff !important;
+}
+
+.p-datatable .p-datatable-tbody > tr > td {
+  color: var(--text-main) !important;
+  padding: 0.9em 1em !important;
+  border-color: var(--border-light) !important;
+  font-size: 0.92em;
+}
+
+.p-datatable .p-datatable-tbody > tr > td:nth-child(2) {
+  color: var(--text-muted) !important;
+}
+
+/* View button inside table */
+.p-datatable .p-button {
+  min-height: 2em;
+  padding: 0.35em 0.75em !important;
+  font-size: 0.82em;
+}
+
+/* Paginator */
+.p-paginator {
+  background: #ffffff !important;
+  color: var(--text-main) !important;
+  border-top: 0.06em solid var(--border-light) !important;
+  padding: 0.75em !important;
+}
+
+.p-paginator .p-paginator-page,
+.p-paginator .p-paginator-first,
+.p-paginator .p-paginator-prev,
+.p-paginator .p-paginator-next,
+.p-paginator .p-paginator-last {
+  color: var(--text-muted) !important;
+  border-radius: 50% !important;
+  min-width: 2.2em;
+  height: 2.2em;
+}
+
+.p-paginator .p-paginator-page.p-highlight {
+  background: var(--primary) !important;
+  color: #ffffff !important;
+}
+
+.p-paginator .p-select {
+  background: #ffffff !important;
+  color: var(--text-main) !important;
+  border-color: #cbd5e1 !important;
+}
+
+/* =========================
+   Add Patient Form
+========================= */
+
 .form-page {
-  max-width: 700px;
-  margin: 32px auto;
-  padding: 16px;
+  min-height: 100vh;
+  max-width: 48em;
+  margin: 0 auto;
+  padding: 3em 1.5em;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.form-page > .p-card {
+  width: 100%;
+}
+
+.form-page .p-card-title {
+  font-size: 1.6em !important;
+  letter-spacing: -0.02em;
 }
 
 .patient-form {
   display: grid;
-  gap: 18px;
-  margin-top: 16px;
+  gap: 1.1em;
+  margin-top: 1em;
 }
 
 .field {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 0.45em;
 }
 
-.field input,
+.field label {
+  font-weight: 700;
+  color: var(--text-main);
+  font-size: 0.95em;
+}
+
+.field small.error {
+  color: var(--danger);
+  font-size: 0.86em;
+}
+
 .field p-datepicker,
 .field p-select {
   width: 100%;
 }
 
-.error {
-  color: #d32f2f;
-}
-
 .actions {
   display: flex;
   justify-content: flex-end;
-  gap: 12px;
-  margin-top: 12px;
+  align-items: center;
+  gap: 0.75em;
+  margin-top: 1.2em;
 }
 
-@media (max-width: 900px) {
+/* =========================
+   Patient Detail Page
+========================= */
+
+.detail-page {
+  min-height: 100vh;
+  max-width: 56em;
+  margin: 0 auto;
+  padding: 3em 1.5em;
+}
+
+.detail-page > .p-card {
+  width: 100%;
+}
+
+.detail-page .p-card-title {
+  font-size: 1.6em !important;
+  letter-spacing: -0.02em;
+}
+
+.detail-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.4em 2em;
+  margin-top: 0.5em;
+}
+
+.detail-grid > div {
+  padding: 1em;
+  background: var(--surface-soft);
+  border: 0.06em solid var(--border-light);
+  border-radius: var(--radius-md);
+}
+
+.detail-grid strong {
+  display: block;
+  margin-bottom: 0.45em;
+  color: var(--text-muted);
+  font-size: 0.82em;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.detail-grid p {
+  margin: 0;
+  color: var(--text-main);
+  font-weight: 600;
+}
+
+/* =========================
+   Status Badges
+========================= */
+
+.status-badge,
+.badge {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  padding: 0.28em 0.7em;
+  border-radius: 999em;
+  font-size: 0.78em;
+  font-weight: 800;
+  text-transform: capitalize;
+  line-height: 1.2;
+}
+
+.status-active,
+.badge-active {
+  background: var(--success-bg);
+  color: var(--success-text);
+}
+
+.status-pending,
+.badge-pending {
+  background: var(--pending-bg);
+  color: var(--pending-text);
+}
+
+.status-inactive,
+.badge-inactive {
+  background: var(--inactive-bg);
+  color: var(--inactive-text);
+}
+
+/* In case your badge component only prints plain status text */
+app-status-badge {
+  display: inline-flex;
+}
+
+/* =========================
+   Spinner Safety
+========================= */
+
+app-spinner {
+  display: block;
+  margin-bottom: 1em;
+}
+
+/* =========================
+   Responsive Design
+========================= */
+
+@media (max-width: 64em) {
+  .dashboard-top {
+    grid-template-columns: 1fr;
+  }
+
   .cards {
     grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 48em) {
+  .dashboard {
+    padding: 1.2em;
   }
 
   .header {
     flex-direction: column;
     align-items: flex-start;
-    gap: 12px;
+  }
+
+  .header h1 {
+    font-size: 1.7em;
+  }
+
+  .filters {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .filters input,
+  .filters .p-select,
+  .filters button {
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .detail-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .form-page,
+  .detail-page {
+    padding: 1.5em 1em;
+  }
+
+  .actions {
+    flex-direction: column-reverse;
+    align-items: stretch;
+  }
+
+  .actions .p-button {
+    width: 100%;
   }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 37.5em) {
   .cards {
     grid-template-columns: 1fr;
   }
+
+  .cards h2 {
+    font-size: 1.8em;
+  }
+
+  .p-datatable {
+    font-size: 0.9em;
+  }
 }
 
-.form-page {
-  max-width: 700px;
-  margin: 32px auto;
-  padding: 16px;
-}
-
-.patient-form {
+.dashboard-top {
   display: grid;
-  gap: 18px;
-  margin-top: 16px;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 1.5em;
+  align-items: start;
+  margin-bottom: 1.5em;
 }
 
-.field {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
+.chart-card {
+  max-width: 100%;
+  margin-bottom: 0;
 }
 
-.field input,
-.field p-datepicker,
-.field p-select {
+.chart-card .p-card {
+  height: 100%;
+}
+
+.cards-panel {
   width: 100%;
 }
 
-.error {
-  color: #d32f2f;
+.cards {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1em;
+  margin-bottom: 0;
 }
 
-.actions {
+.cards .p-card {
+  min-height: 9em;
   display: flex;
-  justify-content: flex-end;
-  gap: 12px;
-  margin-top: 12px;
+  align-items: center;
+}
+
+.cards .p-card-body {
+  width: 100%;
+  padding: 1.2em !important;
+}
+
+.cards .p-card-title {
+  margin-bottom: 0.7em !important;
+  font-size: 0.95em !important;
+  color: var(--text-muted) !important;
+}
+
+.cards h2 {
+  margin: 0;
+  font-size: 2em;
+  color: var(--primary);
+  line-height: 1;
+}
+
+.chart-card .p-card-body {
+  padding: 1.3em !important;
+}
+
+.chart-card canvas {
+  max-width: 100% !important;
+  height: auto !important;
+}
+
+.pie-chart-wrapper {
+  max-width: 16em;
+  margin: 0 auto;
+}
+
+.pie-chart-wrapper canvas {
+  max-width: 100% !important;
+  max-height: 16em !important;
+}
+
+/* =========================
+   PrimeNG Datepicker Fix
+   Force clean light calendar
+========================= */
+
+.p-datepicker-panel,
+.p-datepicker,
+.p-datepicker-calendar-container {
+  background: #ffffff !important;
+  color: #172033 !important;
+  border: 0.06em solid #d9e2ec !important;
+  border-radius: 0.85em !important;
+  box-shadow: 0 0.75em 2em rgba(15, 23, 42, 0.12) !important;
+}
+
+/* Calendar header: month/year area */
+.p-datepicker-header {
+  background: #ffffff !important;
+  color: #172033 !important;
+  border-bottom: 0.06em solid #e8eef5 !important;
+  padding: 0.8em !important;
+}
+
+.p-datepicker-title,
+.p-datepicker-month,
+.p-datepicker-year {
+  color: #172033 !important;
+  font-weight: 700 !important;
+}
+
+/* Previous / next buttons */
+.p-datepicker-prev-button,
+.p-datepicker-next-button,
+.p-datepicker-prev,
+.p-datepicker-next {
+  background: #f8fafc !important;
+  color: #172033 !important;
+  border: 0.06em solid #d9e2ec !important;
+  border-radius: 0.5em !important;
+}
+
+.p-datepicker-prev-button:hover,
+.p-datepicker-next-button:hover,
+.p-datepicker-prev:hover,
+.p-datepicker-next:hover {
+  background: #ccfbf1 !important;
+  color: #0f766e !important;
+}
+
+/* Weekday row */
+.p-datepicker-weekday,
+.p-datepicker-calendar th,
+.p-datepicker-calendar th span {
+  color: #667085 !important;
+  font-weight: 700 !important;
+}
+
+/* Dates */
+.p-datepicker-day,
+.p-datepicker-calendar td span {
+  color: #172033 !important;
+  background: transparent !important;
+  border-radius: 50% !important;
+}
+
+/* Date hover */
+.p-datepicker-day:hover,
+.p-datepicker-calendar td span:hover {
+  background: #ccfbf1 !important;
+  color: #0f766e !important;
+}
+
+/* Selected date */
+.p-datepicker-day-selected,
+.p-datepicker-calendar td.p-datepicker-today span,
+.p-datepicker-calendar td span.p-highlight {
+  background: #0f766e !important;
+  color: #ffffff !important;
+}
+
+/* Disabled / outside-month dates */
+.p-datepicker-day-disabled,
+.p-datepicker-other-month,
+.p-disabled {
+  color: #cbd5e1 !important;
+  opacity: 1 !important;
+}
+
+/* Datepicker input icon button */
+.p-datepicker-dropdown,
+.p-datepicker-trigger {
+  background: #f8fafc !important;
+  color: #172033 !important;
+  border-color: #cbd5e1 !important;
+}
+
+.p-datepicker-dropdown:hover,
+.p-datepicker-trigger:hover {
+  background: #ccfbf1 !important;
+  color: #0f766e !important;
+}
+
+/* =========================
+   Strong Datepicker Month/Year Fix
+========================= */
+
+.p-datepicker-header,
+.p-datepicker .p-datepicker-header,
+.p-datepicker-panel .p-datepicker-header {
+  background: #ffffff !important;
+  color: #172033 !important;
+}
+
+/* Month and year text */
+.p-datepicker-title,
+.p-datepicker .p-datepicker-title,
+.p-datepicker-panel .p-datepicker-title,
+.p-datepicker-title span,
+.p-datepicker-month,
+.p-datepicker-year,
+.p-datepicker-select-month,
+.p-datepicker-select-year {
+  color: #172033 !important;
+  background: transparent !important;
+  font-weight: 700 !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+/* If PrimeNG renders month/year as buttons */
+.p-datepicker-title button,
+.p-datepicker-month,
+.p-datepicker-year {
+  color: #172033 !important;
+  background: transparent !important;
+  border: none !important;
+}
+
+/* Month/year hover */
+.p-datepicker-title button:hover,
+.p-datepicker-month:hover,
+.p-datepicker-year:hover {
+  background: #ccfbf1 !important;
+  color: #0f766e !important;
+}
+
+/* Calendar navigation icons */
+.p-datepicker-prev-button,
+.p-datepicker-next-button,
+.p-datepicker-prev,
+.p-datepicker-next,
+.p-datepicker-header button {
+  color: #172033 !important;
+}
+
+/* Icon inside prev/next buttons */
+.p-datepicker-header button svg,
+.p-datepicker-header button span,
+.p-datepicker-prev-button svg,
+.p-datepicker-next-button svg {
+  color: #172033 !important;
+  fill: #172033 !important;
 }

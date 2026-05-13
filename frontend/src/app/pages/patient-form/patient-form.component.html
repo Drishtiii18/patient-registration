@@ -55,7 +55,7 @@
           formControlName="dateOfBirth"
           [maxDate]="maxDate"
           dateFormat="yy-mm-dd"
-          showIcon="true"
+          [showIcon]="true"
         ></p-datepicker>
         @if (dateOfBirthInvalid) {
           <small class="error">Date of birth is required and cannot be in the future.</small>

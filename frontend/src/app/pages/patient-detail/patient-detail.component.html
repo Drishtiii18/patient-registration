@@ -1,2 +1,77 @@
-<h1>Patient Detail</h1>
-<p>Patient detail page works.</p>
+<div class="detail-page">
+
+  @if (loading()) {
+    <app-spinner />
+  }
+
+  @if (error()) {
+    <p-message
+      severity="error"
+      [text]="error()"
+    ></p-message>
+  }
+
+  @if (success()) {
+    <p-message
+      severity="success"
+      [text]="success()"
+    ></p-message>
+  }
+
+  @if (patient()) {
+    <p-card header="Patient Details">
+
+      <div class="detail-grid">
+        <div>
+          <strong>Full Name</strong>
+          <p>{{ patient()?.firstName }} {{ patient()?.lastName }}</p>
+        </div>
+
+        <div>
+          <strong>Email</strong>
+          <p>{{ patient()?.email }}</p>
+        </div>
+
+        <div>
+          <strong>Date of Birth</strong>
+          <p>{{ patient()?.dateOfBirth | date:'mediumDate' }}</p>
+        </div>
+
+        <div>
+          <strong>Registered Date</strong>
+          <p>{{ patient()?.registeredDate | date:'medium' }}</p>
+        </div>
+
+        <div>
+          <strong>Current Status</strong>
+          <p>
+            <app-status-badge [status]="patient()!.status" />
+          </p>
+        </div>
+
+        <div>
+          <strong>Change Status</strong>
+          <p-select
+            [options]="statusOptions"
+            [ngModel]="patient()!.status"
+            (ngModelChange)="onStatusChange($event)"
+            optionLabel="label"
+            optionValue="value"
+            [disabled]="updating()"
+          ></p-select>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button
+          pButton
+          label="Back to Dashboard"
+          severity="secondary"
+          (click)="goBack()"
+        ></button>
+      </div>
+
+    </p-card>
+  }
+
+</div>

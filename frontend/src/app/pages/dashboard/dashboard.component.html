@@ -11,11 +11,12 @@
     </div>
 
     <button
-      pButton
-      label="+ Add Patient"
-      (click)="goToAddPatient()"
+    pButton
+    label="Add Patient"
+    icon="pi pi-plus"
+    (click)="goToAddPatient()"
     ></button>
-  </div>
+    </div>
 
   @if (error()) {
     <p-message
@@ -24,31 +25,37 @@
     ></p-message>
   }
 
-  <div class="cards">
-    <p-card header="Total Patients">
-      <h2>{{ stats()?.total ?? 0 }}</h2>
-    </p-card>
-
-    <p-card header="Active">
-      <h2>{{ stats()?.active ?? 0 }}</h2>
-    </p-card>
-
-    <p-card header="Pending">
-      <h2>{{ stats()?.pending ?? 0 }}</h2>
-    </p-card>
-
-    <p-card header="Inactive">
-      <h2>{{ stats()?.inactive ?? 0 }}</h2>
-    </p-card>
-  </div>
-
+  <div class="dashboard-top">
   <div class="chart-card">
-    <p-card header="Patient Status Breakdown">
+  <p-card header="Patient Status Breakdown">
+    <div class="pie-chart-wrapper">
       <p-chart
         type="pie"
         [data]="chartData()"
       ></p-chart>
-    </p-card>
+    </div>
+  </p-card>
+  </div>
+
+  <div class="cards-panel">
+    <div class="cards">
+      <p-card header="Total Patients">
+        <h2>{{ stats()?.total ?? 0 }}</h2>
+      </p-card>
+
+      <p-card header="Active">
+        <h2>{{ stats()?.active ?? 0 }}</h2>
+      </p-card>
+
+      <p-card header="Pending">
+        <h2>{{ stats()?.pending ?? 0 }}</h2>
+      </p-card>
+
+      <p-card header="Inactive">
+        <h2>{{ stats()?.inactive ?? 0 }}</h2>
+      </p-card>
+    </div>
+  </div>
   </div>
 
   <p-card header="Patient Records">
@@ -95,6 +102,13 @@
           <th>Registered Date</th>
           <th>Actions</th>
         </tr>
+      </ng-template>
+      <ng-template pTemplate="emptymessage">
+      <tr>
+        <td colspan="5" style="text-align: center; padding: 24px;">
+          No patients found.
+        </td>
+      </tr>
       </ng-template>
 
       <ng-template pTemplate="body" let-patient>
