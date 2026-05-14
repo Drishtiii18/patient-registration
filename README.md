@@ -4,22 +4,30 @@ A full-stack Patient Registration Dashboard built for managing patient registrat
 
 This project was developed as part of a full-stack development internship assignment given by Touchstone Institute. The focus of the application is clean architecture, strong TypeScript usage, REST API design, responsive UI, form validation, error handling, and a professional user experience.
 
+#### Repository
+
+GitHub Repository Link: (https://github.com/Drishtiii18/patient-registration.git)
+
 ---
 
 ## Table of Contents
 
 - [Patient Dashboard Application](#patient-dashboard-application)
+      - [Repository](#repository)
   - [Table of Contents](#table-of-contents)
   - [Project Overview](#project-overview)
   - [Features](#features)
-      - [Dashboard](#dashboard)
-      - [Add Patient Form](#add-patient-form)
-      - [Patient Detail Page](#patient-detail-page)
+    - [Dashboard](#dashboard)
+    - [Add Patient Form](#add-patient-form)
+    - [Patient Detail Page](#patient-detail-page)
   - [Tech Stack](#tech-stack)
-      - [Frontend](#frontend)
-      - [Backend](#backend)
+    - [Frontend](#frontend)
+    - [Backend](#backend)
   - [Project Structure (Given)](#project-structure-given)
   - [Environment Variables](#environment-variables)
+  - [Quick Start](#quick-start)
+    - [Backend (quick)](#backend-quick)
+      - [Frontend (quick)](#frontend-quick)
   - [Backend Setup](#backend-setup)
   - [Frontend Setup](#frontend-setup)
   - [Running the Full Application](#running-the-full-application)
@@ -86,14 +94,14 @@ The frontend is built with Angular, TypeScript, PrimeNG, Angular Router, Reactiv
 ---
 ## Features
 
-#### Dashboard
+### Dashboard
 
-![patient dashboard](\images\img_1.png)
+![patient dashboard](./images/img_1.png)
 
 - Displays patient statistics using summary cards
 - Shows patient status breakdown using a pie chart
   
-![patient records dashboard](\images\img_2.png)
+![patient records dashboard](./images/img_2.png)
 
 - Displays patient records in a responsive table
 - Supports server-side search by name or email
@@ -102,9 +110,9 @@ The frontend is built with Angular, TypeScript, PrimeNG, Angular Router, Reactiv
 - Provides a button to navigate to the Add Patient form
 - Displays loading and error states
 
-#### Add Patient Form
+### Add Patient Form
 
-![add patient record ](\images\img_3.png)
+![add patient record ](./images/img_3.png)
 
 - Allows staff to create a new patient record
 - Uses Reactive Forms
@@ -114,9 +122,9 @@ The frontend is built with Angular, TypeScript, PrimeNG, Angular Router, Reactiv
 - Keeps form data available if an API error occurs
 - Shows loading state while submitting
 
-#### Patient Detail Page
+### Patient Detail Page
 
-![view patient record ](\images\img_4.png)
+![view patient record ](./images/img_4.png)
 
 - Displays full patient information in a read-only layout
 - Allows status updates using a dropdown
@@ -128,7 +136,7 @@ The frontend is built with Angular, TypeScript, PrimeNG, Angular Router, Reactiv
 
 ## Tech Stack
 
-#### Frontend
+### Frontend
 
 | Technology | Purpose |
 |-----|------|
@@ -141,7 +149,7 @@ The frontend is built with Angular, TypeScript, PrimeNG, Angular Router, Reactiv
 | Angular Signals | Local state management |
 | HttpClient | API communication |
 
-#### Backend
+### Backend
 
 | Technology | Purpose |
 |---|---|
@@ -230,6 +238,25 @@ node_modules
 dist
 ```
 
+---
+
+## Quick Start
+
+### Backend (quick)
+
+```bash
+cd backend
+npm install
+npm run dev
+```
+
+#### Frontend (quick)
+
+```bash
+cd frontend
+npm install
+ng serve
+```
 ---
 
 ## Backend Setup
@@ -571,7 +598,7 @@ Example response:
 
 The Add Patient form includes the following validation rules:
 
-![validation form](/images/img_5.png)
+![validation form](./images/img_5.png)
 
 | Field | Validation |
 |---|---|
